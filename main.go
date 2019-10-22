@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/jason0x43/go-toggl"
@@ -39,7 +40,27 @@ func main() {
 		if err != nil {
 			log.Fatalf("Failed to parse time entry duration: %s", err)
 		}
-		log.Infof("%s (%s) - %s", entry.Start, d, entry.Description)
+
+		// Only care about entries not yet logged in JIRA
+		if !contains(entry.Tags, "Logged in JIRA") {
+
+			descParts := strings.Fields(entry.Description)
+			// Make the assumption that the first word in the description is
+			// a JIRA ticket
+			jiraTicket := descParts[0]
+
+			log.Infof("%s (%s) - %s", entry.Start, jiraTicket, d)
+
+		}
 	}
 
+}
+
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
 }
