@@ -37,6 +37,10 @@ func main() {
 		// a JIRA ticket
 		jiraTicket := descParts[0]
 
+		if entry.Duration < 60 {
+			entry.Duration = 60
+		}
+
 		timeSpent, err := time.ParseDuration(fmt.Sprintf("%vs", entry.Duration))
 		if err != nil {
 			log.Fatalf("Failed to parse time entry duration: %s", err)
