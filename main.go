@@ -22,7 +22,7 @@ func main() {
 	for _, entry := range togglEntries(togglSession) {
 
 		// Only care about entries not yet logged in JIRA
-		if entry.HasTag("Logged in JIRA") || entry.HasTag("toggl2jira ignore") {
+		if entry.HasTag("Logged in JIRA") || entry.HasTag("toggl2jira ignore") || entry.HasTag("Not Logging in JIRA") {
 			continue
 		}
 
