@@ -32,6 +32,9 @@ func main() {
 			continue
 		}
 
+		if entry.Description == "" {
+			log.Fatalf("Empty description for entry @ %v", entry.Start)
+		}
 		descParts := strings.Fields(entry.Description)
 		// Make the assumption that the first word in the description is
 		// a JIRA ticket
